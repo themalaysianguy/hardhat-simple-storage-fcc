@@ -7,10 +7,10 @@ async function main() {
   console.log("Deploying contract...")
   const simpleStorage = await SimpleStorageFactory.deploy()
 
-  // Not functionable in version 6^ ethers ----->
+  // Below updated to work with ethers v6^ ----->
   
-  // await simpleStorage.deployed()
-  // console.log(`Deployed contract to: ${simpleStorage.address}`)
+  await simpleStorage.waitForDeployment()
+  console.log(`Deployed contract to: ${simpleStorage.getAddress}`)
 
   //______________________________________________
   
@@ -18,7 +18,7 @@ async function main() {
   if (network.config.chainId === 11155111 && process.env.ETHERSCAN_API_KEY) {
     console.log("Waiting for block confirmations...")
 
-    // Not functionable in version 6^ ethers ----->
+    // Below has been updated to work with version 6^ ethers ----->
     
     await simpleStorage.deploymentTransaction().wait(6)
     await verify(simpleStorage.target, [])
